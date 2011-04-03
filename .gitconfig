@@ -1,0 +1,17 @@
+[core]
+    editor = vim
+    ignorecase = true
+[user]
+    name = Alexandre Dulaunoy
+    email = a@foo.be
+    signingkey = 44E6CBCD
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+    r = remote -v show 
