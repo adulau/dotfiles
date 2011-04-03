@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#
+# actions available:
+#
+#   new  -> create a new note for Today
+#   edit -> edit the note of Today
+#
+# Ugly notes script made by Alexandre Dulaunoy
+# and released under the GNU General Public License
+#
+#
+
+NOTESPATH="${HOME}/.notes"
+
+if ! [ -e "${NOTESPATH}" ]
+then
+       mkdir ${NOTESPATH}
+fi 
+
+if ! [ -d "${NOTESPATH}/.git" ]
+then
+        cd ${NOTESPATH}
+        git init
+fi
+
+function GetPath {
+        echo ${NOTESPATH}/$( date +%Y )/$( date +%m ) 
+}
+
+TODAYPATH=$(GetPath)
+
+function WhereIAm {
+        echo `curl -s -m 2 http://api.hostip.info/ | egrep "(countryName)|(gml:name)" | grep -v "hostip" | sed -e :a -e 's/<[^>]*>//g;/</N;//ba' | sed -e "s/\\n//g" | fmt`
+}
+function Template {
+        TMPFILE="tmp-"$$
+        echo ">> " ${WHAT} `date` "@" $( WhereIAm ) >>${NOTESPATH}/${TMPFILE}
+        echo "with:" `id -nu`",ADD" >>${NOTESPATH}/${TMPFILE}
+        echo "<<end" >>${NOTESPATH}/${TMPFILE}
+        if ! [ -e "$TODAYPATH" ]
+        then
+                mkdir -p ${TODAYPATH}
+        fi        
+        cat ${NOTESPATH}/${TMPFILE} >>${TODAYPATH}/$( date +%d)
+        rm ${NOTESPATH}/${TMPFILE}
+
+}
+
+ACTION=$1
+WHAT=$2
+if [ "${ACTION}" == "new" ]
+then
+        Template
+        vim ${TODAYPATH}/$( date +%d)
+        cd ${TODAYPATH} 
+        git add ${TODAYPATH}/$( date +%d)
+        git commit -m "${WHAT} saved" ${TODAYPATH}/$( date +%d)
+elif [ "${ACTION}" == "edit" ]
+then
+        vim ${TODAYPATH}/$( date +%d)
+else
+        echo "unknown action"
+        exit 1
+fi
+
+
