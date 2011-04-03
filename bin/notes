@@ -16,7 +16,7 @@ NOTESPATH="${HOME}/.notes"
 if ! [ -e "${NOTESPATH}" ]
 then
        mkdir ${NOTESPATH}
-fi 
+fi
 
 if ! [ -d "${NOTESPATH}/.git" ]
 then
@@ -25,7 +25,7 @@ then
 fi
 
 function GetPath {
-        echo ${NOTESPATH}/$( date +%Y )/$( date +%m ) 
+        echo ${NOTESPATH}/$( date +%Y )/$( date +%m )
 }
 
 TODAYPATH=$(GetPath)
@@ -41,7 +41,7 @@ function Template {
         if ! [ -e "$TODAYPATH" ]
         then
                 mkdir -p ${TODAYPATH}
-        fi        
+        fi
         cat ${NOTESPATH}/${TMPFILE} >>${TODAYPATH}/$( date +%d)
         rm ${NOTESPATH}/${TMPFILE}
 
@@ -53,7 +53,7 @@ if [ "${ACTION}" == "new" ]
 then
         Template
         vim ${TODAYPATH}/$( date +%d)
-        cd ${TODAYPATH} 
+        cd ${TODAYPATH}
         git add ${TODAYPATH}/$( date +%d)
         git commit -m "${WHAT} saved" ${TODAYPATH}/$( date +%d)
 elif [ "${ACTION}" == "edit" ]
