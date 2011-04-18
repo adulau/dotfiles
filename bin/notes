@@ -5,6 +5,7 @@
 #
 #   new  -> create a new note for Today
 #   edit -> edit the note of Today
+#   todo -> list todos []
 #
 # Ugly notes script made by Alexandre Dulaunoy
 # and released under the GNU General Public License
@@ -59,13 +60,17 @@ then
 elif [ "${ACTION}" == "edit" ]
 then
         vim ${TODAYPATH}/$( date +%d)
-
 elif [ "${ACTION}" == "todo" ]
 then
         cd ${NOTESPATH}
         find . -type f | grep -v "/\." | xargs -d"\n" grep "\[\]"
+elif [ "${ACTION}" == "list" ]
+then
+        cd ${NOTESPATH}
+        find . -type f | grep -v "/\." | xargs -d"\n" wc -m | grep -v "total"
 else
         echo "unknown action"
+        echo "available action : [new|edit|todo]"
         exit 1
 fi
 
