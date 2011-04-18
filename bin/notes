@@ -59,6 +59,11 @@ then
 elif [ "${ACTION}" == "edit" ]
 then
         vim ${TODAYPATH}/$( date +%d)
+
+elif [ "${ACTION}" == "todo" ]
+then
+        cd ${NOTESPATH}
+        find . -type f | grep -v "/\." | xargs -d"\n" grep "\[\]"
 else
         echo "unknown action"
         exit 1
