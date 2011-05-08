@@ -31,5 +31,7 @@ if v:version >= 700
   autocmd BufNewFile,BufRead *.md  setlocal spell spelllang=en
   " Usually writting my notes in broken English
   autocmd BufNewFile,BufRead ~/.notes/* setlocal spell spelllang=en
+  " and yes, I would like to spellcheck with broken commit message too
+  autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell spelllang=en
 endif
 
