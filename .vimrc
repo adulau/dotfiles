@@ -14,7 +14,7 @@ let perl_include_pod = 1
 let perl_extended_vars = 1
 
 " Menu and alike
-set wildmenu
+set wildmode=longest:full
 set ruler
 set guioptions-=T
 set laststatus=2
@@ -24,3 +24,12 @@ set laststatus=2
 " Show those stupid trailing whitespace
 highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
+" spellcheck
+if v:version >= 700
+  " Enable spell check for text files
+  autocmd BufNewFile,BufRead *.txt  setlocal spell spelllang=en
+  autocmd BufNewFile,BufRead *.md  setlocal spell spelllang=en
+  " Usually writting my notes in broken English
+  autocmd BufNewFile,BufRead ~/.notes/* setlocal spell spelllang=en
+endif
+
