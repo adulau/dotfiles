@@ -5,4 +5,4 @@ startup_message off
 pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 caption always "%{= gk}%-Lw%{= rW}%50> %n%f* %t %{-}%+Lw%< %= %{= Gk} %H %{= rW} %l %{= Gk} %0c:%s %d/%m %{-}"
 shell -$SHELL
-
+termcapinfo xterm ti@:te@
