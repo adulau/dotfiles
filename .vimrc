@@ -35,3 +35,18 @@ if v:version >= 700
   autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell spelllang=en
 endif
 
+" store position (ctrl-o to recall)
+set viminfo='10,\"100,:20,%,n~/.viminfo
+" go to last position
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
